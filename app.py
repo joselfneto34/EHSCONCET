@@ -1,10 +1,16 @@
-from flask import Flask, render_template
+import os
+from flask import Flask
 
-app = Flask(**name**)
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = os.getenv(
+    'SECRET_KEY',
+    'ehsconnect-dev'
+)
 
 @app.route('/')
 def home():
-return render_template('home.html')
+    return 'EHS Connect'
 
-if **name** == '**main**':
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
