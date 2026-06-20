@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | EHS Connect</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/login.css') }}">
+```
+
+</head>
+
+<body>
+
+<div class="background-logo"></div>
+
+<div class="login-container">
+
+```
+<img src="{{ url_for('static', filename='img/logo.png') }}"
+     alt="EHS Connect"
+     class="logo">
+
+<h1>EHS CONNECT</h1>
+
+<p>Sistema de Gestão de SST</p>
+
+<form method="POST">
+
+    <input
+        type="email"
+        name="email"
+        placeholder="E-mail"
+        required>
+
+    <input
+        type="password"
+        name="senha"
+        placeholder="Senha"
+        required>
+
+    <button type="submit">
+        Entrar
+    </button>
+
+</form>
+
+<a href="#">
+    Esqueci minha senha
+</a>
+```
+
+</div>
+
+</body>
+</html>
