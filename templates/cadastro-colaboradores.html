@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Colaborador | EHS CONECT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .card { border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 10px; }
+        .btn-primary { background-color: #1a4d6c; border: none; }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="card p-4 shadow-sm mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-primary"><i class="fas fa-user-plus me-2"></i> Cadastro de Colaborador</h3>
+            <a href="/dashboard" class="btn btn-outline-secondary"><i class="fas fa-home me-2"></i> Página Inicial</a>
+        </div>
+        
+        <form action="/salvar-colaborador" method="POST">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Matrícula</label>
+                    <input type="text" name="matricula" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Nome Completo</label>
+                    <input type="text" name="nome" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">CPF</label>
+                    <input type="text" name="cpf" class="form-control" placeholder="000.000.000-00">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">RG</label>
+                    <input type="text" name="rg" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Cargo</label>
+                    <input type="text" name="cargo" class="form-control">
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label">Setor</label>
+                    <input type="text" name="setor" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Data de Admissão</label>
+                    <input type="date" name="data_admissao" class="form-control">
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label">Empresa</label>
+                    <select name="empresa" class="form-select">
+                        <option value="">Selecione a empresa...</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Gestor Responsável</label>
+                    <input type="text" name="gestor" class="form-control">
+                </div>
+                
+                <div class="col-12 mt-4 text-end">
+                    <button type="reset" class="btn btn-secondary px-4">Limpar</button>
+                    <button type="submit" class="btn btn-primary px-4">Salvar Colaborador</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+        <h5 class="mb-3"><i class="fas fa-list"></i> Colaboradores Cadastrados</h5>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                        <th>Setor</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fernando Silva</td>
+                        <td>12345</td>
+                        <td>Operacional</td>
+                        <td><span class="badge bg-success">Ativo</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger">Desativar</button>
+                            <button class="btn btn-sm btn-outline-primary">Editar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
