@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHS CONCET | Cadastro de EPI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a4d6c;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--light); color: #212529; min-height: 100vh; padding-top: 90px; }
+        
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background-color: #ffffff; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; align-items: center; padding: 0 30px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.01); }
+        .navbar .logo { font-size: 1.3rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .btn-voltar { font-size: 0.85rem; color: var(--primary); text-decoration: none; font-weight: 600; padding: 8px 16px; border: 1px solid #ced4da; border-radius: 6px; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .conteudo-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: start; }
+        
+        .card-form, .card-tabela { background-color: #ffffff; border: 1px solid #e9ecef; border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h2 { font-size: 1.1rem; color: var(--primary); margin-bottom: 20px; font-weight: 600; border-bottom: 1px solid #f1f3f5; padding-bottom: 10px; }
+        
+        .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .input-group { margin-bottom: 16px; }
+        .input-group label { display: block; font-size: 0.75rem; font-weight: 600; color: #495057; margin-bottom: 6px; text-transform: uppercase; }
+        .input-group input, .input-group select { width: 100%; padding: 10px 14px; border: 1px solid #ced4da; border-radius: 6px; font-size: 0.9rem; }
+        
+        .btn-salvar { width: 100%; padding: 12px; background-color: var(--primary); color: #ffffff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-salvar:hover { background-color: #153d56; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th { background-color: var(--light); padding: 12px; border-bottom: 2px solid #e9ecef; text-transform: uppercase; font-size: 0.75rem; color: var(--primary); text-align: left; }
+        td { padding: 14px; border-bottom: 1px solid #e9ecef; }
+        
+        .badge { padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .bg-ativo { background-color: #d1e7dd; color: #0f5132; }
+        .btn-edit { color: var(--primary); background: none; border: none; cursor: pointer; }
+        .btn-delete { color: var(--danger); background: none; border: none; cursor: pointer; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="#" class="logo">EHS<span>CONECT</span></a>
+        <a href="dashboard.html" class="btn-voltar"><i class="fas fa-arrow-left me-2"></i>Voltar ao Menu</a>
+    </header>
+
+    <div class="container">
+        <div class="conteudo-layout">
+            <section class="card-form">
+                <h2>Cadastrar Novo EPI</h2>
+                <form id="form-epi">
+                    <div class="input-group">
+                        <label>Nome / Descrição</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Nº do C.A.</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Fabricante</label>
+                            <input type="text" required>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Unidade</label>
+                            <select>
+                                <option>Par</option>
+                                <option>Unidade</option>
+                                <option>Peça</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Valor (R$)</label>
+                            <input type="number" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Qtd. Inicial</label>
+                            <input type="number" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Estoque Mínimo</label>
+                            <input type="number" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-salvar">Salvar no Inventário</button>
+                </form>
+            </section>
+
+            <section class="card-tabela">
+                <h2>Inventário Atualizado</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EPI</th>
+                            <th>Qtd</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Protetor Auricular</td>
+                            <td>150</td>
+                            <td><span class="badge bg-ativo">Ativo</span></td>
+                            <td>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
