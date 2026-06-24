@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Entrega EPI | EHS CONECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <style>
+        :root { --primary: #1a4d6c; --light: #f8f9fa; --danger: #dc3545; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--light); padding: 20px; }
+        .card { max-width: 900px; margin: 0 auto 30px auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); margin-bottom: 25px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; font-size: 1.2rem; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; color: #495057; text-transform: uppercase; margin-bottom: 8px; }
+        select, input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; }
+        .signature-pad { border: 2px dashed #dee2e6; width: 100%; height: 200px; background: #fff; touch-action: none; border-radius: 6px; }
+        .btn-acao { width: 100%; padding: 15px; background-color: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-limpar { background: none; color: var(--danger); border: none; font-size: 0.8rem; cursor: pointer; }
+        
+        /* Estilo da Tabela */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        th { background-color: var(--light); padding: 12px; border-bottom: 2px solid #e9ecef; text-align: left; color: var(--primary); text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid #e9ecef; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2><i class="fas fa-signature"></i> Registro de Entrega de EPI</h2>
+    <form id="form-entrega" method="POST" action="/salvar-entrega">
+        <div class="row" style="display: flex; gap: 20px;">
+            <div class="input-group" style="flex: 1;">
+                <label>Colaborador</label>
+                <select name="colaborador_id" required>
+                    <option value="">Selecione...</option>
+                    {% for c in colaboradores %}
+                    <option value="{{ c.id }}">{{ c.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>EPI Entregue</label>
+                <select name="epi_id" required>
+                    <option value="">Selecione...</option>
+                    {% for e in epis %}
+                    <option value="{{ e.id }}">{{ e.descricao }} (CA: {{ e.ca }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label id="label-desafio">Validação (Digite os 4 dígitos do CPF conforme solicitado):</label>
+            <input type="number" id="input-validacao" placeholder="Ex: 1234" required>
+        </div>
+
+        <label>Assinatura do Colaborador</label>
+        <canvas id="signature-pad" class="signature-pad"></canvas>
+        <div style="text-align: right; margin-bottom: 20px;">
+            <button type="button" class="btn-limpar" onclick="signaturePad.clear()"><i class="fas fa-eraser"></i> Limpar Assinatura</button>
+        </div>
+
+        <input type="hidden" name="assinatura_base64" id="assinatura_base64">
+        <button type="submit" class="btn-acao" onclick="prepararAssinatura()">Registrar Entrega Legal</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2><i class="fas fa-history"></i> Histórico de Entregas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Colaborador</th>
+                <th>EPI</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrega in entregas %}
+            <tr>
+                <td>{{ entrega.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ entrega.colaborador.nome }}</td>
+                <td>{{ entrega.epi.descricao }}</td>
+                <td><span class="badge" style="color: green;">Assinado</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    function prepararAssinatura() {
+        if (!signaturePad.isEmpty()) {
+            document.getElementById('assinatura_base64').value = signaturePad.toDataURL();
+        } else {
+            alert("Por favor, colete a assinatura do colaborador.");
+            event.preventDefault();
+        }
+    }
+</script>
+</body>
+</html>
